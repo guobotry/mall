@@ -1,10 +1,10 @@
 package com.macro.mall.search.service.impl;
 
-import com.macro.mall.search.dao.EsProductDao;
-import com.macro.mall.search.domain.EsProduct;
-import com.macro.mall.search.domain.EsProductRelatedInfo;
-import com.macro.mall.search.repository.EsProductRepository;
-import com.macro.mall.search.service.EsProductService;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.elasticsearch.action.search.SearchResponse;
 import org.elasticsearch.common.lucene.search.function.FunctionScoreQuery;
 import org.elasticsearch.index.query.BoolQueryBuilder;
@@ -35,10 +35,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import com.macro.mall.search.dao.EsProductDao;
+import com.macro.mall.search.domain.EsProduct;
+import com.macro.mall.search.domain.EsProductRelatedInfo;
+import com.macro.mall.search.domain.EsQuestion;
+import com.macro.mall.search.repository.EsProductRepository;
+import com.macro.mall.search.repository.EsQuestionRepository;
+import com.macro.mall.search.service.EsProductService;
 
 
 /**
@@ -53,12 +56,27 @@ public class EsProductServiceImpl implements EsProductService {
     @Autowired
     private EsProductRepository productRepository;
     @Autowired
+    private EsQuestionRepository questRepository;
+    @Autowired
     private ElasticsearchTemplate elasticsearchTemplate;
     @Override
     public int importAll() {
         List<EsProduct> esProductList = productDao.getAllEsProductList(null);
         Iterable<EsProduct> esProductIterable = productRepository.saveAll(esProductList);
         Iterator<EsProduct> iterator = esProductIterable.iterator();
+        int result = 0;
+        while (iterator.hasNext()) {
+            result++;
+            iterator.next();
+        }
+        return result;
+    }
+    
+    @Override
+    public int importEduAll() {
+        List<EsQuestion> esQuestionList = productDao.getAllEsQuestionList();
+        Iterable<EsQuestion> esProductIterable = questRepository.saveAll(esQuestionList);
+        Iterator<EsQuestion> iterator = esProductIterable.iterator();
         int result = 0;
         while (iterator.hasNext()) {
             result++;

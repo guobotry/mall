@@ -1,9 +1,11 @@
 package com.macro.mall.search.dao;
 
-import com.macro.mall.search.domain.EsProduct;
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
-import java.util.List;
+import com.macro.mall.search.domain.EsProduct;
+import com.macro.mall.search.domain.EsQuestion;
 
 /**
  * 搜索系统中的商品管理自定义Dao
@@ -11,4 +13,5 @@ import java.util.List;
  */
 public interface EsProductDao {
     List<EsProduct> getAllEsProductList(@Param("id") Long id);
+    List<EsQuestion> getAllEsQuestionList();
 }

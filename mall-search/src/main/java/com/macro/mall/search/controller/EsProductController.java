@@ -33,6 +33,14 @@ public class EsProductController {
         int count = esProductService.importAll();
         return CommonResult.success(count);
     }
+    
+	@ApiOperation(value = "导入题库到ES")
+	@RequestMapping(value = "/importEduAll", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult<Integer> importEduAll() {
+		int count = esProductService.importEduAll();
+		return CommonResult.success(count);
+	}
 
     @ApiOperation(value = "根据id删除商品")
     @RequestMapping(value = "/delete/{id}", method = RequestMethod.GET)

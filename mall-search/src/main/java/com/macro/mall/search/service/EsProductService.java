@@ -15,6 +15,12 @@ public interface EsProductService {
      * 从数据库中导入所有商品到ES
      */
     int importAll();
+    
+    /**
+     * 导入题库到elk中
+     * @return
+     */
+    int importEduAll();
 
     /**
      * 根据id删除商品
